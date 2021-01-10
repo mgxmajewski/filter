@@ -44,7 +44,11 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    // Decalre array which will keep temporary copy of 
     RGBTRIPLE temp[height][width];
+    
+    
+    // Create set of nested loops to get each pixel of image which will become a center of a box
     
     // Loops through (horizontal) rows where i = 0 is the top row 
     for (int row = 0; row < height; row++)
@@ -52,11 +56,21 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where j = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
-            // Declare variables to cumulate sourounding pixels RGB values
+            // Declare variables to cumulate boxes all pixels RGB values
             int red_box, blue_box, green_box = 0;
             
-            // Decalre variable to get right dividor to calculate avarage
-            int avg_divider = 0;
+            // Decalre variable to get right divider to calculate avarage
+            int avg_divider = 0; // it will be different than 9 for corner(4) and edge(6)
+            
+            // Loops through (horizontal) rows - begins with -1 because we get preciding pixels
+            for (int row_box = row - 1; row_box <= 1; row_box++)
+            {
+                for (int column_box = column - 1; column_box <= 1; column_box++)
+                {
+                    continue;
+                }
+            }
+            // Loops through (vertical) box_col
             
             
             // Populate image array with "blur avaraged" new pixels
