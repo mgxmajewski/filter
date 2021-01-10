@@ -47,14 +47,20 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE temp[height][width];
     
     // Loops through (horizontal) rows where i = 0 is the top row 
-    for (int i = 0; i < height; i++)
+    for (int row = 0; row < height; row++)
     {
         // Loops through (vertical) columns where j = 0 is the first left column
-        for (int j = 0; j < width; j++)
+        for (int column = 0; column < width; column++)
         {
+            // Declare variables to cumulate sourounding pixels RGB values
+            int red_box, blue_box, green_box = 0;
             
-            // Populates image array with "blur avaraged" new pixels
-            temp[i][j] = image[i][j];
+            // Decalre variable to get right dividor to calculate avarage
+            int avg_divider = 0;
+            
+            
+            // Populate image array with "blur avaraged" new pixels
+            temp[row][column] = image[row][column];
         }
     }
     return;
