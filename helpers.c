@@ -45,14 +45,18 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE temp[height][width];
+    
+    // Loops through (horizontal) rows where i = 0 is the top row 
     for (int i = 0; i < height; i++)
     {
-        for (int j = 0; j < width: j++)
+        // Loops through (vertical) columns where j = 0 is the first left column
+        for (int j = 0; j < width; j++)
         {
+            
+            // Populates image array with "blur avaraged" new pixels
             temp[i][j] = image[i][j];
         }
     }
-
     return;
 }
 
