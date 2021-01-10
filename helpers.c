@@ -47,20 +47,28 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     // Decalre array which will keep temporary copy of 
     RGBTRIPLE temp[height][width];
     
+    // Declare variables to cumulate boxes all pixels RGB values
+    double red_box;
+    double green_box;
+    double blue_box;
+    
+    // Decalre variable to get right divider to calculate avarage
+    int avg_divider; // it will be different than 9 for corner(4) and edge(6)
+    
     
     // Create set of nested loops to get each pixel of image which will become a center of a box
     
-    // Loops through (horizontal) rows where i = 0 is the top row 
+    // Loops through (horizontal) rows where row = 0 is the top row 
     for (int row = 0; row < height; row++)
     {
-        // Loops through (vertical) columns where j = 0 is the first left column
+        // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
-            // Declare variables to cumulate boxes all pixels RGB values
-            int red_box, green_box, blue_box = 0;
+            red_box = 0;
+            green_box = 0;
+            blue_box = 0;
+            avg_divider =0;
             
-            // Decalre variable to get right divider to calculate avarage
-            int avg_divider = 0; // it will be different than 9 for corner(4) and edge(6)
             
             // Loops through (horizontal) rows - begins with -1 because we get preciding row
             for (int row_box = row - 1; row_box <= 1; row_box++)
@@ -68,19 +76,33 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 // Loops through (vertical) box_col - begins with -1 because we get preciding column
                 for (int column_box = column - 1; column_box <= 1; column_box++)
                 {
-                    // red_box = image[row_box][column_box].rgbtRed;
-                    // green_box = image[row_box][column_box].rgbtGreen;
-                    // blue_box = image[row_box][column_box].rgbtBlue;
-                    // avg_divider++;
-                    continue;
+                    // Adds condition to exclude outer pixels which are "forced" by 3x3 box loop 
+                    if((row_box >= 0 && row_box <width) && (column_box >= 0 && column_box < height))
+                    {
+                        red_box += image[row_box][column_box].rgbtRed;
+                        green_box += image[row_box][column_box].rgbtGreen;
+                        blue_box += image[row_box][column_box].rgbtBlue;
+                        avg_divider++;   
+                    }
                 }
             }
             
-            temp[row][column].rgbtRed = 127; //round((float)(red_box/avg_divider));
-            temp[row][column].rgbtGreen = 140; //round((float)(green_box/avg_divider));
-            temp[row][column].rgbtBlue = 149; //round((float)(blue_box/avg_divider));
+            red_box = round(red_box/(double)avg_divider);
+            green_box = round(green_box/(double)avg_divider);
+            blue_box = round(blue_box/(double)avg_divider);
             
-            
+            temp[row][column].rgbtRed = red_box;
+            temp[row][column].rgbtGreen = green_box;
+            temp[row][column].rgbtBlue = blue_box;
+        }
+    }
+    
+    // Loops through (horizontal) rows where row = 0 is the top row 
+    for (int row = 0; row < height; row++)
+    {
+        // Loops through (vertical) columns where column = 0 is the first left column
+        for (int column = 0; column < width; column++)
+        {
             // Populate image array with "blur avaraged" new pixels
             image[row][column] = temp[row][column];
         }
