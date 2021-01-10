@@ -57,24 +57,32 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         for (int column = 0; column < width; column++)
         {
             // Declare variables to cumulate boxes all pixels RGB values
-            int red_box, blue_box, green_box = 0;
+            int red_box, green_box, blue_box = 0;
             
             // Decalre variable to get right divider to calculate avarage
             int avg_divider = 0; // it will be different than 9 for corner(4) and edge(6)
             
-            // Loops through (horizontal) rows - begins with -1 because we get preciding pixels
+            // Loops through (horizontal) rows - begins with -1 because we get preciding row
             for (int row_box = row - 1; row_box <= 1; row_box++)
             {
+                // Loops through (vertical) box_col - begins with -1 because we get preciding column
                 for (int column_box = column - 1; column_box <= 1; column_box++)
                 {
+                    // red_box = image[row_box][column_box].rgbtRed;
+                    // green_box = image[row_box][column_box].rgbtGreen;
+                    // blue_box = image[row_box][column_box].rgbtBlue;
+                    // avg_divider++;
                     continue;
                 }
             }
-            // Loops through (vertical) box_col
+            
+            temp[row][column].rgbtRed = 127; //round((float)(red_box/avg_divider));
+            temp[row][column].rgbtGreen = 140; //round((float)(green_box/avg_divider));
+            temp[row][column].rgbtBlue = 149; //round((float)(blue_box/avg_divider));
             
             
             // Populate image array with "blur avaraged" new pixels
-            temp[row][column] = image[row][column];
+            image[row][column] = temp[row][column];
         }
     }
     return;
