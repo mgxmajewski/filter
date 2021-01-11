@@ -85,7 +85,6 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            
             // Asign calculated RGB avarages to the blur boxes center pixel
             temp[row][column].rgbtRed = round(red_box / avg_divider);
             temp[row][column].rgbtGreen = round(green_box / avg_divider);
@@ -109,5 +108,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
+    // Declare 2 arrays which will keep temporary copy of 
+    RGBTRIPLE tempGx[height][width];
+    RGBTRIPLE tempGy[height][width];
+    
     return;
 }
