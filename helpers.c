@@ -120,7 +120,26 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
-            continue;        
+            
+            // Loops through (horizontal) rows - begins with -1 because matrix include preciding row
+            for (int row_convolute = row - 1; row_convolute <= row + 1 ; row_convolute++)
+            {
+                // Loops through (vertical) box_col - begins with -1 because matrix include preciding row
+                for (int column_convolute = column - 1; column_convolute <= column + 1; column_convolute++)
+                {
+                    // Adds condition to exclude pixels outside image which are "forced" by 3x3 box 
+                    if ((row_convolute >= 0 && row_convolute < width) && (column_convolute >= 0 && column_convolute < height))
+                    {
+                        // Here we gonna multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
+                        
+                        // Here we gonna multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
+                    }
+                    else 
+                    {
+                        // Here values gonna be set to zero - they are out of the picture
+                    }
+                }
+            }        
         }
     }
     return;
