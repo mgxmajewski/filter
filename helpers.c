@@ -112,5 +112,16 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE tempGx[height][width];
     RGBTRIPLE tempGy[height][width];
     
+    // Create set of nested loops to get each pixel of image which will become a center of a box
+    
+    // Loops through (horizontal) rows where row = 0 is the top row 
+    for (int row = 0; row < height; row++)
+    {
+        // Loops through (vertical) columns where column = 0 is the first left column
+        for (int column = 0; column < width; column++)
+        {
+            continue;        
+        }
+    }
     return;
 }
