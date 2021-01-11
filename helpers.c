@@ -44,16 +44,16 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    // Decalre array which will keep temporary copy of 
+    // Declare array which will keep temporary copy of 
     RGBTRIPLE temp[height][width];
     
-    // Declare variables to cumulate boxes all pixels RGB values
+    // Declare variables to cumulate all pixels RGB values of the 3x3 blur box
     double red_box;
     double green_box;
     double blue_box;
     
-    // Decalre variable to get right divider to calculate avarage
-    int avg_divider; // it will be different than 9 for corner(4) and edge(6)
+    // Decalre variable to set divider to calculate avarage
+    int avg_divider; // it will be different than 9 for corner(4) and edge(6) pixels
     
     
     // Create set of nested loops to get each pixel of image which will become a center of a box
@@ -64,19 +64,19 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
+            // Reset pixel values
             red_box = 0;
             green_box = 0;
             blue_box = 0;
             avg_divider =0;
             
-            
-            // Loops through (horizontal) rows - begins with -1 because we get preciding row
-            for (int row_box = row - 1; row_box <= 1; row_box++)
+            // Loops through (horizontal) rows - begins with -1 because box include preciding row
+            for (int row_box = row - 1; row_box <= row + 1 ; row_box++)
             {
-                // Loops through (vertical) box_col - begins with -1 because we get preciding column
-                for (int column_box = column - 1; column_box <= 1; column_box++)
+                // Loops through (vertical) box_col - begins with -1 because box include preciding row
+                for (int column_box = column - 1; column_box <= column + 1; column_box++)
                 {
-                    // Adds condition to exclude outer pixels which are "forced" by 3x3 box loop 
+                    // Adds condition to exclude pixels outside image which are "forced" by 3x3 box 
                     if((row_box >= 0 && row_box <width) && (column_box >= 0 && column_box < height))
                     {
                         red_box += image[row_box][column_box].rgbtRed;
