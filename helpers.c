@@ -123,6 +123,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
+            // Reset Gx and Gy values for each pixel
+            red_Gx = 0;
+            green_Gx = 0;
+            blue_Gx = 0;
+            red_Gy = 0;
+            green_Gy = 0;
+            blue_Gy = 0;
             
             // Loops through (horizontal) rows - begins with -1 because matrix include preciding row
             for (int row_convolute = row - 1; row_convolute <= row + 1 ; row_convolute++)
