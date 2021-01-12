@@ -109,8 +109,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     // Declare 2 arrays which will keep temporary copy of 
-    RGBTRIPLE tempGx[height][width];
-    RGBTRIPLE tempGy[height][width];
+    RGBTRIPLE tempG[height][width];
     
     // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
     float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
@@ -159,7 +158,32 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         continue;
                     }
                 }
-            }        
+            }
+            // Caping the maximum RGB value to 255
+            if (red_Gx > 255)
+            {
+                red_Gx = 255; 
+            }
+            if (green_Gx > 255)
+            {
+                green_Gx = 255; 
+            }
+            if (blue_Gx > 255)
+            {
+                blue_Gx = 255; 
+            }
+            if (red_Gy > 255)
+            {
+                red_Gy = 255; 
+            }
+            if (green_Gy > 255)
+            {
+                green_Gy = 255; 
+            }
+            if (blue_Gy > 255)
+            {
+                blue_Gy = 255; 
+            }
         }
     }
     return;
