@@ -112,6 +112,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE tempGx[height][width];
     RGBTRIPLE tempGy[height][width];
     
+    // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
+    float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
+    
     // Create set of nested loops to get each pixel of image which will become a center of a box
     
     // Loops through (horizontal) rows where row = 0 is the top row 
@@ -136,7 +139,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     }
                     else 
                     {
-                        // Here values gonna be set to zero - they are out of the picture
+                        continue;
                     }
                 }
             }        
