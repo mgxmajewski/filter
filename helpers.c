@@ -115,6 +115,10 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
     float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
     
+    // Declare convolutional matrixes (Sobel–Feldman operator)
+    int gx [3][3] = {{-1, 0, 1}{-2, 0, 2}{-1, 0, 1}};
+    int gy [3][3] = {{-1, -2, -1}{0, 0, 0}{1, 2, 1}};
+    
     // Create set of nested loops to get each pixel of image which will become a center of a box
     
     // Loops through (horizontal) rows where row = 0 is the top row 
