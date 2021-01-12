@@ -159,36 +159,38 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            // Cap the maximum RGB value to 255
-            if (red_Gx > 255)
-            {
-                red_Gx = 255;
-            }
-            if (green_Gx > 255)
-            {
-                green_Gx = 255;
-            }
-            if (blue_Gx > 255)
-            {
-                blue_Gx = 255;
-            }
-            if (red_Gy > 255)
-            {
-                red_Gy = 255;
-            }
-            if (green_Gy > 255)
-            {
-                green_Gy = 255;
-            }
-            if (blue_Gy > 255)
-            {
-                blue_Gy = 255;
-            }
+            
             // Calculate G which is squared root of sum of squared Gx and Gy
             
-            tempG[row][column].rgbtRed = round(sqrt(pow (red_Gx, 2) + pow (red_Gx, 2)));
-            tempG[row][column].rgbtGreen = round(sqrt(pow (green_Gx, 2) + pow (green_Gx, 2)));
-            tempG[row][column].rgbtBlue = round(sqrt(pow (blue_Gx, 2) + pow (blue_Gx, 2)));
+            tempG[row][column].rgbtRed = round(sqrt(pow (red_Gx, 2) + pow (red_Gy, 2)));
+            tempG[row][column].rgbtGreen = round(sqrt(pow (green_Gx, 2) + pow (green_Gy, 2)));
+            tempG[row][column].rgbtBlue = round(sqrt(pow (blue_Gx, 2) + pow (blue_Gy, 2)));
+            
+            // Cap the maximum RGB value to 255
+            
+            if (tempG[row][column].rgbtRed > 255)
+            {
+                tempG[row][column].rgbtRed = 255;
+            }
+            if (tempG[row][column].rgbtGreen > 255)
+            {
+                tempG[row][column].rgbtGreen = 255;
+            }
+            if (tempG[row][column].rgbtBlue > 255)
+            {
+                tempG[row][column].rgbtBlue = 255;
+            }
+        }
+    }
+    
+    // Loops through (horizontal) rows where row = 0 is the top row
+    for (int row = 0; row < height; row++)
+    {
+        // Loops through (vertical) columns where column = 0 is the first left column
+        for (int column = 0; column < width; column++)
+        {
+            // Populate image array with "blur avaraged" new pixels
+            image[row][column] = tempG[row][column];
         }
     }
     return;
