@@ -116,8 +116,8 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
     
     // Declare convolutional matrixes (Sobel–Feldman operator)
-    int gx [3][3] = {{-1, 0, 1}{-2, 0, 2}{-1, 0, 1}};
-    int gy [3][3] = {{-1, -2, -1}{0, 0, 0}{1, 2, 1}};
+    int gx [3][3] = {{-1, 0, 1},{-2, 0, 2},{-1, 0, 1}};
+    int gy [3][3] = {{-1, -2, -1},{0, 0, 0},{1, 2, 1}};
     
     // Create set of nested loops to get each pixel of image which will become a center of a box
     
@@ -145,8 +145,14 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     if ((row_convolute >= 0 && row_convolute < width) && (column_convolute >= 0 && column_convolute < height))
                     {
                         // Here we gonna multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
+                        red_Gx += image[row_convolute][column_convolute].rgbtRed * gx [row_convolute][column_convolute];
+                        green_Gx += image[row_convolute][column_convolute].rgbtGreen * gx [row_convolute][column_convolute];
+                        blue_Gx += image[row_convolute][column_convolute].rgbtBlue * gx [row_convolute][column_convolute];
                         
                         // Here we gonna multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
+                        red_Gy += image[row_convolute][column_convolute].rgbtRed * gy [row_convolute][column_convolute];
+                        green_Gy += image[row_convolute][column_convolute].rgbtGreen * gy [row_convolute][column_convolute];
+                        blue_Gy += image[row_convolute][column_convolute].rgbtBlue * gy [row_convolute][column_convolute];
                     }
                     else 
                     {
