@@ -127,8 +127,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     for (int row = 0; row < height; row++)
     {
         // Loops through (vertical) columns where column = 0 is the first left column
-        for (int column = 0; column < width; column++)
+        for (int col = 0; col < width; col++)
         {
+            
+            int row_box[3] = {row - 1, row, row + 1};
+            int col_box[3] = {col -1, col, col + 1};
             
             // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
             float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
@@ -142,23 +145,26 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             blue_Gy = 0;
 
             // Loops through (horizontal) rows - begins with -1 because matrix include preciding row
-            for (int row_convolute = row - 1; row_convolute <= row + 1 ; row_convolute++)
+            for (int x = 0; x <= 2 ; x++)
             {
                 // Loops through (vertical) box_col - begins with -1 because matrix include preciding row
-                for (int column_convolute = column - 1; column_convolute <= column + 1; column_convolute++)
+                for (int y = 0; y <= 2; y++)
                 {
+                    // Delare analized pixels position relative to box
+                    int x_box = row_box[x];
+                    int y_box = col_box[y];
                     // Adds condition to exclude pixels outside image which are "forced" by 3x3 box
-                    if ((row_convolute >= 0 && row_convolute < width) && (column_convolute >= 0 && column_convolute < height))
+                    if ((x_box >= 0 && x_box < width) && (y_box >= 0 && y_box < height))
                     {
                         // Here we gonna multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
-                        red_Gx += image[row_convolute][column_convolute].rgbtRed * gx [row_convolute][column_convolute];
-                        green_Gx += image[row_convolute][column_convolute].rgbtGreen * gx [row_convolute][column_convolute];
-                        blue_Gx += image[row_convolute][column_convolute].rgbtBlue * gx [row_convolute][column_convolute];
+                        red_Gx += image[x_box][y_box].rgbtRed * gx [x_box][y_box];
+                        green_Gx += image[x_box][y_box].rgbtGreen * gx [x_box][y_box];
+                        blue_Gx += image[x_box][y_box].rgbtBlue * gx [x_box][y_box];
 
                         // Here we gonna multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
-                        red_Gy += image[row_convolute][column_convolute].rgbtRed * gy [row_convolute][column_convolute];
-                        green_Gy += image[row_convolute][column_convolute].rgbtGreen * gy [row_convolute][column_convolute];
-                        blue_Gy += image[row_convolute][column_convolute].rgbtBlue * gy [row_convolute][column_convolute];
+                        red_Gy += image[x_box][y_box].rgbtRed * gy [x_box][y_box];
+                        green_Gy += image[x_box][y_box].rgbtGreen * gy [x_box][y_box];
+                        blue_Gy += image[x_box][y_box].rgbtBlue * gy [x_box][y_box];
                     }
                     else
                     {
@@ -169,23 +175,23 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             
             // Calculate G which is squared root of sum of squared Gx and Gy
             
-            tempG[row][column].rgbtRed = round(sqrt(pow (red_Gx, 2) + pow (red_Gy, 2)));
-            tempG[row][column].rgbtGreen = round(sqrt(pow (green_Gx, 2) + pow (green_Gy, 2)));
-            tempG[row][column].rgbtBlue = round(sqrt(pow (blue_Gx, 2) + pow (blue_Gy, 2)));
+            tempG[row][col].rgbtRed = round(sqrt(pow (red_Gx, 2) + pow (red_Gy, 2)));
+            tempG[row][col].rgbtGreen = round(sqrt(pow (green_Gx, 2) + pow (green_Gy, 2)));
+            tempG[row][col].rgbtBlue = round(sqrt(pow (blue_Gx, 2) + pow (blue_Gy, 2)));
             
             // Cap the maximum RGB value to 255
             
-            if (tempG[row][column].rgbtRed > 255)
+            if (tempG[row][col].rgbtRed > 255)
             {
-                tempG[row][column].rgbtRed = 255;
+                tempG[row][col].rgbtRed = 255;
             }
-            if (tempG[row][column].rgbtGreen > 255)
+            if (tempG[row][col].rgbtGreen > 255)
             {
-                tempG[row][column].rgbtGreen = 255;
+                tempG[row][col].rgbtGreen = 255;
             }
-            if (tempG[row][column].rgbtBlue > 255)
+            if (tempG[row][col].rgbtBlue > 255)
             {
-                tempG[row][column].rgbtBlue = 255;
+                tempG[row][col].rgbtBlue = 255;
             }
         }
     }
@@ -194,10 +200,10 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     for (int row = 0; row < height; row++)
     {
         // Loops through (vertical) columns where column = 0 is the first left column
-        for (int column = 0; column < width; column++)
+        for (int col = 0; col < width; col++)
         {
             // Populate image array with "blur avaraged" new pixels
-            image[row][column] = tempG[row][column];
+            image[row][col] = tempG[row][col];
         }
     }
     return;
