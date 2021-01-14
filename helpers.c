@@ -53,7 +53,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     for (int row = 0; row < height; row++)
     {
         // Loops through (vertical) columns where column = 0 is the first left column
-        for (int column = 0; column < width; column++)
+        for (int col = 0; col < width; col++)
         {
             
             // Declare variables to cumulate all pixels RGB values of the 3x3 blur box
@@ -67,28 +67,34 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             green_box = 0;
             blue_box = 0;
             avg_divider = 0;
+            
+            int row_box[3] = {row - 1, row, row + 1};
+            int col_box[3] = {col -1, col, col + 1};
 
             // Loops through (horizontal) rows - begins with -1 because box include preciding row
-            for (int row_box = row - 1; row_box <= row + 1 ; row_box++)
+            for (int x = 0; x <= 2 ; x++)
             {
                 // Loops through (vertical) box_col - begins with -1 because box include preciding row
-                for (int column_box = column - 1; column_box <= column + 1; column_box++)
+                for (int y = 0; y <= 2; y++)
                 {
+                    // Delare analized pixels position relative to box
+                    int x_box = row_box[x];
+                    int y_box = col_box[y];
                     // Adds condition to exclude pixels outside image which are "forced" by 3x3 box
-                    if ((row_box >= 0 && row_box < width) && (column_box >= 0 && column_box < height))
+                    if ((x_box >= 0 && x_box < width) && (y_box >= 0 && y_box < height))
                     {
                         // Cumulates pixel RGB values (only those included in image)
-                        red_box += image[row_box][column_box].rgbtRed;
-                        green_box += image[row_box][column_box].rgbtGreen;
-                        blue_box += image[row_box][column_box].rgbtBlue;
+                        red_box += image[x_box][y_box].rgbtRed;
+                        green_box += image[x_box][y_box].rgbtGreen;
+                        blue_box += image[x_box][y_box].rgbtBlue;
                         avg_divider++;
                     }
                 }
             }
             // Asign calculated RGB avarages to the blur boxes center pixel
-            temp[row][column].rgbtRed = round(red_box / avg_divider);
-            temp[row][column].rgbtGreen = round(green_box / avg_divider);
-            temp[row][column].rgbtBlue = round(blue_box / avg_divider);
+            temp[row][col].rgbtRed = round(red_box / avg_divider);
+            temp[row][col].rgbtGreen = round(green_box / avg_divider);
+            temp[row][col].rgbtBlue = round(blue_box / avg_divider);
         }
     }
 
@@ -96,10 +102,10 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     for (int row = 0; row < height; row++)
     {
         // Loops through (vertical) columns where column = 0 is the first left column
-        for (int column = 0; column < width; column++)
+        for (int col = 0; col < width; col++)
         {
             // Populate image array with "blur avaraged" new pixels
-            image[row][column] = temp[row][column];
+            image[row][col] = temp[row][col];
         }
     }
     return;
