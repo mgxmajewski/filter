@@ -47,13 +47,6 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     // Declare array which will keep temporary copy of
     RGBTRIPLE temp[height][width];
 
-    // Declare variables to cumulate all pixels RGB values of the 3x3 blur box
-    float red_box, green_box, blue_box;
-
-    // Decalre variable to set divider to calculate avarage
-    float avg_divider; // it will be different than 9 for corner(4) and edge(6) pixels
-
-
     // Create set of nested loops to get each pixel of image which will become a center of a box
 
     // Loops through (horizontal) rows where row = 0 is the top row
@@ -62,6 +55,13 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
+            
+            // Declare variables to cumulate all pixels RGB values of the 3x3 blur box
+            float red_box, green_box, blue_box;
+
+            // Decalre variable to set divider to calculate avarage
+            float avg_divider; // it will be different than 9 for corner(4) and edge(6) pixels
+            
             // Reset pixel values
             red_box = 0;
             green_box = 0;
