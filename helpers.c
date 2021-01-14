@@ -117,9 +117,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     // Declare 2 arrays which will keep temporary copy of
     RGBTRIPLE tempG[height][width];
 
-    // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
-    float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
-
     // Declare convolutional matrixes (Sobel–Feldman operator)
     int gx [3][3] = {{-1, 0, 1},{-2, 0, 2},{-1, 0, 1}};
     int gy [3][3] = {{-1, -2, -1},{0, 0, 0},{1, 2, 1}};
@@ -132,6 +129,10 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int column = 0; column < width; column++)
         {
+            
+            // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
+            float red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
+
             // Reset Gx and Gy values for each pixel
             red_Gx = 0;
             green_Gx = 0;
