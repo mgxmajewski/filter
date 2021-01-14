@@ -136,11 +136,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         for (int col = 0; col < width; col++)
         {
             
-            double row_box[] = {row - 1, row, row + 1};
-            double col_box[] = {col -1, col, col + 1};
+            int row_box[] = {row - 1, row, row + 1};
+            int col_box[] = {col -1, col, col + 1};
             
             // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
-            long red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
+            int red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
 
             // Reset Gx and Gy values for each pixel
             red_Gx = 0;
@@ -163,23 +163,23 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     if ((x_box >= 0 && x_box < height) && (y_box >= 0 && y_box < width))
                     {
                         // Here we gonna multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
-                        red_Gx += image[x_box][y_box].rgbtRed * gx [x_box][y_box];
-                        green_Gx += image[x_box][y_box].rgbtGreen * gx [x_box][y_box];
-                        blue_Gx += image[x_box][y_box].rgbtBlue * gx [x_box][y_box];
+                        red_Gx += image[x_box][y_box].rgbtRed * gx [x][y];
+                        green_Gx += image[x_box][y_box].rgbtGreen * gx [x][y];
+                        blue_Gx += image[x_box][y_box].rgbtBlue * gx [x][y];
 
                         // Here we gonna multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
-                        red_Gy += image[x_box][y_box].rgbtRed * gy [x_box][y_box];
-                        green_Gy += image[x_box][y_box].rgbtGreen * gy [x_box][y_box];
-                        blue_Gy += image[x_box][y_box].rgbtBlue * gy [x_box][y_box];
+                        red_Gy += image[x_box][y_box].rgbtRed * gy [x][y];
+                        green_Gy += image[x_box][y_box].rgbtGreen * gy [x][y];
+                        blue_Gy += image[x_box][y_box].rgbtBlue * gy [x][y];
                     }
                 }
             }
             
             // Calculate G which is squared root of sum of squared Gx and Gy
             
-            long red_edge = round(sqrt(red_Gx * red_Gx + red_Gy * red_Gy));
-            long green_edge = round(sqrt(green_Gx * green_Gx + green_Gy * green_Gy));
-            long blue_edge = round(sqrt(blue_Gx * blue_Gx + blue_Gy * blue_Gy));
+            int red_edge = round(sqrt(red_Gx * red_Gx + red_Gy * red_Gy));
+            int green_edge = round(sqrt(green_Gx * green_Gx + green_Gy * green_Gy));
+            int blue_edge = round(sqrt(blue_Gx * blue_Gx + blue_Gy * blue_Gy));
             
             
             
