@@ -175,9 +175,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             
             // Calculate G which is squared root of sum of squared Gx and Gy
             
-            tempG[row][col].rgbtRed = round(sqrt(pow (red_Gx, 2) + pow (red_Gy, 2)));
-            tempG[row][col].rgbtGreen = round(sqrt(pow (green_Gx, 2) + pow (green_Gy, 2)));
-            tempG[row][col].rgbtBlue = round(sqrt(pow (blue_Gx, 2) + pow (blue_Gy, 2)));
+            tempG[row][col].rgbtRed = round(sqrt(red_Gx * red_Gx + red_Gy * red_Gy));
+            tempG[row][col].rgbtGreen = round(sqrt(green_Gx * green_Gx + green_Gy * green_Gy));
+            tempG[row][col].rgbtBlue = round(sqrt(blue_Gx * blue_Gx + blue_Gy * blue_Gy));
             
             // Cap the maximum RGB value to 255
             
