@@ -135,7 +135,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Loops through (vertical) columns where column = 0 is the first left column
         for (int col = 0; col < width; col++)
         {
-            
+            // Create array describing 'boxes' used for calculations 
             int row_box[] = {row - 1, row, row + 1};
             int col_box[] = {col -1, col, col + 1};
             
@@ -156,18 +156,18 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 // Loops through (vertical) box_col - begins with -1 because matrix include preciding row
                 for (int y = 0; y <= 2; y++)
                 {
-                    // Delare analized pixels position relative to box
+                    // Declare analized pixels position relative to box
                     int x_box = row_box[x];
                     int y_box = col_box[y];
                     // Adds condition to exclude pixels outside image which are "forced" by 3x3 box
                     if ((x_box >= 0 && x_box < height) && (y_box >= 0 && y_box < width))
                     {
-                        // Here we gonna multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
+                        // Multiply two matrixes: convolution Gx matrix with pixel RGB values matrix
                         red_Gx += image[x_box][y_box].rgbtRed * gx [x][y];
                         green_Gx += image[x_box][y_box].rgbtGreen * gx [x][y];
                         blue_Gx += image[x_box][y_box].rgbtBlue * gx [x][y];
 
-                        // Here we gonna multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
+                        // Multiply two matrixes: convolution Gy matrix with pixel RGB values matrix
                         red_Gy += image[x_box][y_box].rgbtRed * gy [x][y];
                         green_Gy += image[x_box][y_box].rgbtGreen * gy [x][y];
                         blue_Gy += image[x_box][y_box].rgbtBlue * gy [x][y];
@@ -176,13 +176,12 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             }
             
             // Calculate G which is squared root of sum of squared Gx and Gy
-            
             int red_edge = round(sqrt(red_Gx * red_Gx + red_Gy * red_Gy));
             int green_edge = round(sqrt(green_Gx * green_Gx + green_Gy * green_Gy));
             int blue_edge = round(sqrt(blue_Gx * blue_Gx + blue_Gy * blue_Gy));
             
             
-            
+            // Cap RGB avalues up to 255 using turneries
             tempG[row][col].rgbtRed = red_edge > 255 ? 255: red_edge;
             tempG[row][col].rgbtGreen = green_edge > 255 ? 255: green_edge;
             tempG[row][col].rgbtBlue = blue_edge > 255 ? 255: blue_edge;
