@@ -68,7 +68,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             blue_box = 0;
             
             int row_box[3] = {row - 1, row, row + 1};
-            int col_box[3] = {col -1, col, col + 1};
+            int col_box[3] = {col - 1, col, col + 1};
 
             // Loops through (horizontal) rows - begins with -1 because box include preciding row
             for (int x = 0; x <= 2 ; x++)
@@ -93,9 +93,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             // Asign calculated RGB avarages to the blur boxes center pixel
-            int red_avg = round(red_box/avg_divider);
-            int green_avg = round(green_box/avg_divider);
-            int blue_avg = round(blue_box/avg_divider);
+            int red_avg = round(red_box / avg_divider);
+            int green_avg = round(green_box / avg_divider);
+            int blue_avg = round(blue_box / avg_divider);
             
             
             temp[row][col].rgbtRed = red_avg;
@@ -124,8 +124,8 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE tempG[height][width];
 
     // Declare convolutional matrixes (Sobel–Feldman operator)
-    int gx [3][3] = {{-1, 0, 1},{-2, 0, 2},{-1, 0, 1}};
-    int gy [3][3] = {{-1, -2, -1},{0, 0, 0},{1, 2, 1}};
+    int gx [3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+    int gy [3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
     // Create set of nested loops to get each pixel of image which will become a center of a box
 
@@ -137,7 +137,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         {
             // Create array describing 'boxes' used for calculations 
             int row_box[] = {row - 1, row, row + 1};
-            int col_box[] = {col -1, col, col + 1};
+            int col_box[] = {col - 1, col, col + 1};
             
             // Declare variables to calculate Gx and Gy pixels RGB values of the 3x3 blur box
             int red_Gx, green_Gx, blue_Gx, red_Gy, green_Gy, blue_Gy;
@@ -182,9 +182,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             
             
             // Cap RGB avalues up to 255 using turneries
-            tempG[row][col].rgbtRed = red_edge > 255 ? 255: red_edge;
-            tempG[row][col].rgbtGreen = green_edge > 255 ? 255: green_edge;
-            tempG[row][col].rgbtBlue = blue_edge > 255 ? 255: blue_edge;
+            tempG[row][col].rgbtRed = red_edge > 255 ? 255 : red_edge;
+            tempG[row][col].rgbtGreen = green_edge > 255 ? 255 : green_edge;
+            tempG[row][col].rgbtBlue = blue_edge > 255 ? 255 : blue_edge;
             
         }
     }
